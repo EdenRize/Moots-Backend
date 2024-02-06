@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import fs from 'fs'
 
-export const loggerService = {
+export const logger = {
   debug(...args: any[]) {
     doLog('DEBUG', undefined, ...args)
   },

@@ -5,7 +5,7 @@ import path from 'path'
 import mongoose from 'mongoose'
 
 import { petRouter } from './api/pet/pet.routes'
-import { loggerService } from './services/logger.service'
+import { logger } from './services/logger.service'
 import { config } from './config/config'
 
 
@@ -13,13 +13,13 @@ const app = express()
 
 mongoose.connect(config.mongo.url, { retryWrites: true, w: 'majority' })
   .then(() => {
-    loggerService.info('Connected to MongoDB')
-    loggerService.info('Server is loading...')
+    logger.info('Connected to MongoDB')
+    logger.info('Server is loading...')
     startServer()
   })
   .catch((err) => {
-    loggerService.error('Unable to connect to MongoDb', err)
-    loggerService.error('Shutting down server')
+    logger.error('Unable to connect to MongoDb', err)
+    logger.error('Shutting down server')
   })
 
 const startServer = () => {
@@ -31,10 +31,10 @@ const startServer = () => {
   /** SETTING UP CORS */
 
   if (process.env.NODE_ENV === 'production') {
-    loggerService.info(`Server running in production mode`)
+    logger.info(`Server running in production mode`)
     app.use(express.static(path.resolve('public')))
   } else {
-    loggerService.info('Server running in development mode')
+    logger.info('Server running in development mode')
     const corsOptions = {
       origin: [
         'http://127.0.0.1:3030',
@@ -50,10 +50,10 @@ const startServer = () => {
   /** LOG REQ & RES FROM SERVER - FOR DEBUGGING, COMMENT OUT IF NOT NEEDED */
 
   app.use((req, res, next) => {
-    loggerService.incoming(`Incoming -> Method[${req.method}] - Url: [${req.url}] - IP [${req.socket.remoteAddress}]`)
+    logger.incoming(`Incoming -> Method[${req.method}] - Url: [${req.url}] - IP [${req.socket.remoteAddress}]`)
 
     res.on('finish', () => {
-      loggerService.outgoing(res.statusCode, `Outgoing -> Method[${req.method}] - Url: [${req.url}] - IP [${req.socket.remoteAddress}] - Status: [${res.statusCode}]`)
+      logger.outgoing(res.statusCode, `Outgoing -> Method[${req.method}] - Url: [${req.url}] - IP [${req.socket.remoteAddress}] - Status: [${res.statusCode}]`)
     })
 
     next()
@@ -86,6 +86,6 @@ const startServer = () => {
   })
 
   app.listen(port, () => {
-    loggerService.info(`Server is running on port: [${port}]`)
+    logger.info(`Server is running on port: [${port}]`)
   })
 }
