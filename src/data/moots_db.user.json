@@ -1,0 +1,18 @@
+[
+  {
+    "_id": {
+      "$oid": "659fd52d810c3f98c2054719"
+    },
+    "username": "Eden",
+    "password": "$2b$10$DHmpAedZ94JhFhyIJF0uO.yTwWR5DK4Aoup2RkrOiqV9WtVByg8Xq",
+    "avatar": "https://res.cloudinary.com/dkvliixzt/image/upload/v1704360556/catt_dytsgq.jpg"
+  },
+  {
+    "_id": {
+      "$oid": "659fd52d810c3f98c2051234"
+    },
+    "username": "Nadav",
+    "password": "$2b$10$DHmpAedZ94JhFhyIJF0uO.yTwWR5DK4Aoup2RkrOiqV9WtVByg8Xq",
+    "avatar": "https://res.cloudinary.com/dkvliixzt/image/upload/v1704360556/catt_dytsgq.jpg"
+  }
+]

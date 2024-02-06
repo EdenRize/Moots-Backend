@@ -2,10 +2,11 @@
   "name": "ts-node-express-rest-mongodb",
   "version": "0.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "build": "rm -rf build/ && tsc",
-    "devN": "tsc && nodemon build/server.js",
+    "dev": "nodemon server.ts",
+    "devN": "tsc && nodemon build/server.ts",
     "devTS": "tsc -w"
   },
   "keywords": [],

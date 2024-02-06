@@ -1,6 +1,4 @@
 import { NextFunction, Request, Response } from 'express'
-
-import Pet from './pet.model'
 import { logger } from '../../services/logger.service'
 import { petService } from './pet.service'
 
