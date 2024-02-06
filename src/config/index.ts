@@ -20,26 +20,3 @@ export const config = {
   }
 }
 
-
-
-
-// interface AppConfig {
-//   isGuestMode?: boolean; // Make it optional by adding '?'
-//   // Other properties...
-// }
-
-
-// // Define a variable to hold the configuration
-// let config: AppConfig;
-
-// // Determine the environment and assign the appropriate configuration
-// if (process.env.NODE_ENV === 'production') {
-//   config = { ...configProd };
-// } else {
-//   config = { ...configDev };
-// }
-
-// // Modify the configuration as needed
-// config.isGuestMode = true;
-
-// export { config };

@@ -8,13 +8,12 @@ const userSchema = new Schema(
     password: { type: String, required: true },
     pets: [{ type: String }], 
     avatar: { type: String },
-  },
-
+  }, { versionKey: false }
 );
 
 
 
-const UserModel = mongoose.model('User', userSchema);
+const UserModel = mongoose.model('User', userSchema, 'User');
 
 
 export default UserModel;

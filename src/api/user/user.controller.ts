@@ -14,7 +14,7 @@ export async function getUser(req: Request, res: Response): Promise<void> {
 
 export async function getUsers(req: Request, res: Response): Promise<void> {
     try {
-        const users = await userService.query(req.body.filterBy);
+        const users = await userService.query(req.body.filterBy)
         res.send(users);
     } catch (err) {
         logger.error('Failed to get users', err);

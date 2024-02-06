@@ -11,7 +11,7 @@ const petSchema = new Schema(
     description: { type: String },
     imgs: [{ type: String }], 
     race: { type: String },
-  },
+  }, { versionKey: false }
 
 );
 
