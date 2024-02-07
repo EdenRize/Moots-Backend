@@ -11,10 +11,10 @@ export const requireAuth = (req: CustomRequest, res: Response, next: NextFunctio
   const { loggedinUser } = asyncLocalStorage.getStore() ?? {};
   req.loggedinUser = loggedinUser;
 
-  if (!loggedinUser) {
-    req.loggedinUser = { _id: '', fullname: 'Guest' };
-    return next();
-  }
+  // if (!loggedinUser) {
+  //   req.loggedinUser = { _id: '', fullname: 'Guest' };
+  //   return next();
+  // }
   if (!loggedinUser) return res.status(401).send('Not Authenticated');
   next();
 };

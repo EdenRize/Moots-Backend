@@ -35,7 +35,7 @@ async function getById(petId: string): Promise<Pet | undefined> {
   }
 }
 
-async function query (filterBy: {[key:string]:any} = {}) {
+async function query (filterBy: {[key:string]:any} = {}): Promise<Pet[]> {
   try {
     const pets = await PetModel.find(buildQuery(filterBy))
     return pets
@@ -70,23 +70,23 @@ export async function remove(petId: string): Promise<boolean> {
   }
 }
 
-function buildQuery(filterBy: any): any {
+function buildQuery(filterBy: {[key:string]:any}): any {
     const query: any = {}
 
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         query.$or = [
             { name: regex },
-            { type: regex },
+            { race: regex },
         ]
     }
 
     if (filterBy.type) {
-        query.type = { $gte: filterBy.type }
+        query.type = { $eq: filterBy.type }
     }
 
     if (filterBy.race) {
-        query.race = { $gte: filterBy.race }
+        query.race = { $eq: filterBy.race }
     }
 
    if (filterBy.minAge || filterBy.maxAge) {

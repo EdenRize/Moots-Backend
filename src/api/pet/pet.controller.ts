@@ -3,9 +3,8 @@ import { logger } from '../../services/logger.service'
 import { petService } from './pet.service'
 import { Pet } from './pet.model'
 
-export async function addPet (req: Request, res: Response, next: NextFunction) {
+export async function addPet (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-
     const { 
       ownerId,
       type,
@@ -26,12 +25,12 @@ export async function addPet (req: Request, res: Response, next: NextFunction) {
       race
     }
 
-    const addedPet = await petService.add(petToAdd)
+    const addedPet:Pet = await petService.add(petToAdd)
     logger.debug(`Added pet: [${addedPet._id}]`)
-    return res.status(201).send({ pet: addedPet })
+    res.status(201).send({ pet: addedPet })
   } catch (err) {
     logger.error(err)
-    return res.status(500).send({ err })
+    res.status(500).send({ err })
   }
 }
 
@@ -53,17 +52,17 @@ export async function getPetById(req: Request, res: Response): Promise<void> {
 }
 
 
-export async function getPets (req: Request, res: Response, next: NextFunction) {
+export async function getPets (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const pets = await petService.query(req.body.filterBy)
     res.send(pets)
   } catch (err) {
     logger.error(err)
-    return res.status(500).send({ err })
+    res.status(500).send({ err })
   }
 }
 
-export async function updatePet (req: Request, res: Response, next: NextFunction) {
+export async function updatePet (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const { 
       _id,
@@ -76,7 +75,7 @@ export async function updatePet (req: Request, res: Response, next: NextFunction
       race
      } = req.body
   
-    const petToUpdate = {
+    const petToUpdate:Pet = {
       _id,
       ownerId,
       type,
@@ -91,7 +90,7 @@ export async function updatePet (req: Request, res: Response, next: NextFunction
     res.send(updatedPet)
   } catch (err) {
     logger.error(err)
-    return res.status(500).send({ err })
+    res.status(500).send({ err })
   }
 }
 

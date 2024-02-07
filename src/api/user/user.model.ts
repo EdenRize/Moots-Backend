@@ -1,13 +1,19 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+export interface User{
+  _id?:string
+  username:string,
+  password:string
+  avatar?:string
+  pets?:string[]
+}
 
-
-const userSchema = new Schema(
+const userSchema = new Schema<User>(
   {
     username: { type: String, required: true },
     password: { type: String, required: true },
-    pets: [{ type: String }], 
     avatar: { type: String },
+    pets: [{ type: String }], 
   }, { versionKey: false }
 );
 
