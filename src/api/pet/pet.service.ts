@@ -1,5 +1,5 @@
 import { logger } from '../../services/logger.service'
-import Pet from './pet.model'
+import PetModel, { Pet  } from './pet.model'
 import mongoose from 'mongoose'
 
 
@@ -11,9 +11,10 @@ export const petService = {
     remove,
 }
 
-async function add(pet: any): Promise<any> {
+async function add(pet: Pet): Promise<Pet> {
     try {
-        const newPet = new Pet(pet)
+      
+        const newPet = new PetModel(pet)
         await newPet.save()
         return newPet
     } catch (err) {
@@ -22,19 +23,21 @@ async function add(pet: any): Promise<any> {
     }
 }
 
-async function getById(petId: string): Promise<any> {
+async function getById(petId: string): Promise<Pet | undefined> {
   try {
-    const foundPet = await Pet.findById(petId)
-    return foundPet
+    const foundPet = await PetModel.findById(petId)
+    if(foundPet){
+      return foundPet
+    }
+    throw new Error('Failed to find pet')
   } catch (err) {
-    console.error(err)
     throw new Error('Failed to find pet')
   }
 }
 
-async function query (filterBy: any = {}) {
+async function query (filterBy: {[key:string]:any} = {}) {
   try {
-    const pets = await Pet.find(buildQuery(filterBy))
+    const pets = await PetModel.find(buildQuery(filterBy))
     return pets
   } catch (err) {
     console.error(err)
@@ -42,9 +45,10 @@ async function query (filterBy: any = {}) {
   }
 }
 
-async function update(pet: any): Promise<any> {
+async function update(pet: Pet): Promise<Pet | null> {
     try {
-        const updatedPet = await Pet.findByIdAndUpdate(
+      if(!pet._id) throw new Error('No pet id')
+        const updatedPet = await PetModel.findByIdAndUpdate(
             mongoose.Types.ObjectId.createFromHexString(pet._id),
             pet,
             { new: true }
@@ -58,7 +62,7 @@ async function update(pet: any): Promise<any> {
 
 export async function remove(petId: string): Promise<boolean> {
   try {
-    const removedPet = await Pet.findByIdAndDelete(petId)
+    const removedPet = await PetModel.findByIdAndDelete(petId)
     return !!removedPet
   } catch (err) {
     logger.error(`cannot remove pet ${petId}`, err)

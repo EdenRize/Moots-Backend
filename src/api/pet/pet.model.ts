@@ -1,8 +1,17 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
+export interface Pet{
+  _id?:string
+  ownerId:string,
+  type:string
+  name?:string
+  age?:string
+  description?:string
+  imgs?:string[]
+  race?:string
+}
 
-
-const petSchema = new Schema(
+export const petSchema = new Schema<Pet>(
   {
     ownerId: { type: String, required: true },
     type: { type: String, required: true },

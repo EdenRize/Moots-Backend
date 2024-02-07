@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express'
 import { logger } from '../../services/logger.service'
 import { petService } from './pet.service'
+import { Pet } from './pet.model'
 
 export async function addPet (req: Request, res: Response, next: NextFunction) {
   try {
@@ -15,7 +16,7 @@ export async function addPet (req: Request, res: Response, next: NextFunction) {
       race
      } = req.body
   
-    const petToAdd = {
+    const petToAdd:Pet = {
       ownerId,
       type,
       name,
@@ -36,7 +37,7 @@ export async function addPet (req: Request, res: Response, next: NextFunction) {
 
 export async function getPetById(req: Request, res: Response): Promise<void> {
   try {
-    const petId = req.params.petId
+    const {petId} = req.params
     const foundPet = await petService.getById(petId)
 
     if (foundPet) {
