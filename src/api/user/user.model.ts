@@ -8,6 +8,15 @@ export interface User{
   pets?:string[]
 }
 
+export interface SafeUser{
+    _id?:string
+  username:string,
+  password?:string
+  avatar?:string
+  pets?:string[]
+}
+
+
 const userSchema = new Schema<User>(
   {
     username: { type: String, required: true },

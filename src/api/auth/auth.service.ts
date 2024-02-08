@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import { Request } from 'express' // Assuming you might need this for type annotations in future
 import { userService } from '../user/user.service'
 import { logger } from '../../services/logger.service'
-import { User } from '../user/user.model'
+import {  SafeUser, User } from '../user/user.model'
 
 // const cryptr = new Cryptr(process.env.CRYPTR_SECRET)
 const cryptr = new Cryptr(process.env.CRYPTR_SECRET || 'Secret-myday-1801')
@@ -15,19 +15,20 @@ export const authService = {
     validateToken
 }
 
-async function login(username: string, password: string):Promise<User> {
+async function login(username: string, password: string) {
     try {
         logger.debug(`auth.service - login with username: ${username}`)
     
-        const user = await userService.getByUsername(username)
-        if (!user) throw new Error('Invalid username or password')
+        const user:any = await userService.getByUsername(username)
         
+        if (!user) throw new Error('Invalid username or password')
+   
         const match = await bcrypt.compare(password, user.password)
         if (!match) throw new Error('Invalid username or password')
-    
-        delete user.password
-        user._id = user._id.toString()
-        return user  
+        if (user._id) user._id = user._id.toString()
+        const userToSend:SafeUser = {...user._doc}
+        delete userToSend.password
+        return userToSend  
     } catch (err) {
         logger.error('cannot login', err)
         throw err
@@ -52,7 +53,7 @@ async function signup(user:User):Promise<User> {
     }
 }
 
-function getLoginToken(user:User) {
+function getLoginToken(user:SafeUser) {
     const userInfo = { _id: user._id, username: user.username, avatar: user.avatar }
     return cryptr.encrypt(JSON.stringify(userInfo))
 }
