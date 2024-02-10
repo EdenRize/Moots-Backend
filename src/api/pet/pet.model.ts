@@ -4,6 +4,7 @@ export interface Pet{
   _id?:string
   ownerId:string,
   type:string
+  createdAt:number
   name?:string
   age?:string
   description?:string

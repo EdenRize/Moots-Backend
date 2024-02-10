@@ -19,6 +19,7 @@ export async function addPet (req: Request, res: Response, next: NextFunction): 
   
     const petToAdd:Pet = {
       ownerId: loggedinUser._id,
+      createdAt: Date.now(),
       type,
       name,
       age,
@@ -70,6 +71,7 @@ export async function updatePet (req: Request, res: Response, next: NextFunction
       _id,
       ownerId,
       type,
+      createdAt,
       name,
       age,
       description,
@@ -81,6 +83,7 @@ export async function updatePet (req: Request, res: Response, next: NextFunction
       _id,
       ownerId,
       type,
+      createdAt,
       name,
       age,
       description,
