@@ -57,7 +57,7 @@ export async function getPetById(req: Request, res: Response): Promise<void> {
 
 export async function getPets (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const pets = await petService.query(req.body.filterBy)
+    const pets = await petService.query(req.query)
     res.send(pets)
   } catch (err) {
     logger.error(err)

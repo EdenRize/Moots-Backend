@@ -72,7 +72,6 @@ export async function remove(petId: string): Promise<boolean> {
 
 function buildQuery(filterBy: {[key:string]:any}): any {
     const query: any = {}
-
     if (filterBy.txt) {
         const regex = new RegExp(filterBy.txt, 'i')
         query.$or = [
