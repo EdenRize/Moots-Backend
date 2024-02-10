@@ -6,7 +6,7 @@ export interface Pet{
   type:string
   createdAt:number
   name?:string
-  age?:string
+  age?:number
   description?:string
   imgs?:string[]
   race?:string
@@ -16,8 +16,9 @@ export const petSchema = new Schema<Pet>(
   {
     ownerId: { type: String, required: true },
     type: { type: String, required: true },
-    name: { type: String },
-    age: { type: String },
+    name: { type: String, required: true },
+    createdAt: { type: Number, required: true },
+    age: { type: Number },
     description: { type: String },
     imgs: [{ type: String }], 
     race: { type: String },

@@ -1,14 +1,32 @@
 [
     {
-    "_id": {
-        "$oid": "659fb84f43565a19c57dd627"
-    },
     "ownerId": "659fd52d810c3f98c2054719",
     "type": "cat",
     "name": "טים",
-    "age": "4 חודשים",
+    "createdAt": 1706358207589,
+    "age": 1686344400000,
     "race": "בריטי",
     "description": "חתול שמן מטומטם לא נחמד בככל עזבו אותו",
     "imgs": ["https://res.cloudinary.com/dkvliixzt/image/upload/v1707163072/d620b7ac-5dd7-4981-a32d-b5d673498260_raydjz.jpg"]
+    },
+    {
+    "ownerId": "65c3b62de706af94f49d97f2",
+    "type": "dog",
+    "name": "נאלה",
+    "createdAt": 1707560665044,
+    "age": 1549749600000,
+    "race": "כנענית",
+    "description": "חמודה אבל יש לה אפילפסיה",
+    "imgs": ["https://res.cloudinary.com/dkvliixzt/image/upload/v1707566837/414c871a-078a-4389-87a6-ea124b951baf_kxiqrg.jpg"]
+    },
+    {
+    "ownerId": "659fd52d810c3f98c2051234",
+    "type": "cat",
+    "name": "פרי",
+    "createdAt": 1706876699232,
+    "age": 1610748000000,
+    "race": "רחוב",
+    "description": "משוגעת לגמרי",
+    "imgs": ["https://res.cloudinary.com/dkvliixzt/image/upload/v1707567169/dd6fefb7-59e4-41e0-9448-aeb3514e8bfc_mkc4tl.jpg"]
     }
 ]
