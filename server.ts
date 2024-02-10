@@ -10,6 +10,7 @@ import { config } from './src/config';
   import { authRoutes } from './src/api/auth/auth.routes';
   import { userRoutes } from './src/api/user/user.routes';
   import { petRoutes } from './src/api/pet/pet.routes';
+import { setupAsyncLocalStorage } from './src/middlewares/setupAls.middleware';
 
 
 const app = express();
@@ -47,6 +48,7 @@ function startServer() {
   app.use(express.json());
 
 
+  app.all('*', setupAsyncLocalStorage)
   app.use('/api/auth', authRoutes);
   app.use('/api/user', userRoutes);
   app.use('/api/pet', petRoutes);

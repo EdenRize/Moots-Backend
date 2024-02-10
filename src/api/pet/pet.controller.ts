@@ -2,11 +2,13 @@ import { NextFunction, Request, Response } from 'express'
 import { logger } from '../../services/logger.service'
 import { petService } from './pet.service'
 import { Pet } from './pet.model'
+import { asyncLocalStorage } from '../../services/als.service'
 
 export async function addPet (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
+      const { loggedinUser } = asyncLocalStorage.getStore()
+
     const { 
-      ownerId,
       type,
       name,
       age,
@@ -16,7 +18,7 @@ export async function addPet (req: Request, res: Response, next: NextFunction): 
      } = req.body
   
     const petToAdd:Pet = {
-      ownerId,
+      ownerId: loggedinUser._id,
       type,
       name,
       age,
