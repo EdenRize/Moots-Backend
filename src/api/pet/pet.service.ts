@@ -88,6 +88,10 @@ function buildQuery(filterBy: {[key:string]:any}): any {
         query.race = { $eq: filterBy.race }
     }
 
+    if (filterBy.ownerId) {
+        query.ownerId = { $eq: filterBy.ownerId }
+    }
+
    if (filterBy.minAge || filterBy.maxAge) {
         query.age = {}
 

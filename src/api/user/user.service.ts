@@ -8,6 +8,7 @@ export const userService = {
     getByUsername,
     remove,
     update,
+    addPetToUser,
 }
 
 async function add(user:User): Promise<User> {
@@ -67,6 +68,22 @@ async function update(user: User): Promise<User | null> {
     } catch (err) {
         logger.error(`cannot update user ${user._id}`, err)
         throw err
+    }
+}
+
+async function addPetToUser(userId: string, petId: string): Promise<User | null> {
+    try {
+        const user = await UserModel.findById(userId);
+        if (!user) {
+            throw new Error('User not found');
+        }
+        if(!user.pets) user.pets = []
+        user.pets.unshift(petId); // Add the new petId to the beginning of the pets array
+        const updatedUser = await user.save();
+        return updatedUser;
+    } catch (err) {
+        logger.error(`Cannot add pet to user ${userId}`, err);
+        throw err;
     }
 }
 

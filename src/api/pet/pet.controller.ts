@@ -3,6 +3,7 @@ import { logger } from '../../services/logger.service'
 import { petService } from './pet.service'
 import { Pet } from './pet.model'
 import { asyncLocalStorage } from '../../services/als.service'
+import { addPetToUser } from '../user/user.controller'
 
 export async function addPet (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
@@ -29,6 +30,11 @@ export async function addPet (req: Request, res: Response, next: NextFunction): 
     }
 
     const addedPet:Pet = await petService.add(petToAdd)
+
+    if(addedPet._id) {
+      await addPetToUser(addedPet.ownerId, addedPet._id)
+    }
+    
     logger.debug(`Added pet: [${addedPet._id}]`)
     res.status(201).send({ pet: addedPet })
   } catch (err) {

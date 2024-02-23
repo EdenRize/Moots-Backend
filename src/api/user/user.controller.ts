@@ -43,3 +43,13 @@ export async function updateUser(req: Request, res: Response): Promise<void> {
         res.status(400).send({ err: 'Failed to update user' })
     }
 }
+
+export async function addPetToUser(userId:string, petId:string): Promise<User | null> {
+    try {
+        const updatedUser = await userService.addPetToUser(userId, petId);
+        return updatedUser
+    } catch (err) {
+        logger.error('Failed to add pet to user', err);
+        throw err
+    }
+}
